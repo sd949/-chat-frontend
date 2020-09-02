@@ -1,4 +1,4 @@
-<div class="container-fluid" style="padding: 50px;">
+<div class="container-fluid" style="padding: 50px; " *ngIf="auth.loggedIn">
   <!-- <div class="row">
       <h2>ChatNchat</h2>
       <hr>
@@ -36,12 +36,12 @@
           </div>
       </div>
   </div>
-  <div class="row">
+  <div class="row"  >
       <div class="col-sm-10">
           <input type="text" class="form-control"  [(ngModel)]="messageText"  >
       </div>
       <div class="col-sm-2">
-              <button type="button" class="btn btn-success " (click)="sendMessage()" >Send</button>
+              <button type="button" class="btn btn-success " (click)="sendMessage()" [disabled]="!messageText" >Send</button>
   </div>
   </div>
 

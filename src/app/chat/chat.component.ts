@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ChatService } from '../chat.service';
 import { Observable} from 'rxjs';
 import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-chat',
@@ -17,7 +18,7 @@ export class ChatComponent implements OnInit {
   messageArray:Array<{user:String,message:String}> = [];
 
 
-  constructor(private _chatService: ChatService , private http:HttpClient){
+  constructor(private _chatService: ChatService , private http:HttpClient ,public auth: AuthService){
     this.http.get<[{creator:String, content:String}]>('http://localhost:8080/chat').subscribe(data=>{
     data.forEach(element => {
       let {
@@ -47,7 +48,7 @@ export class ChatComponent implements OnInit {
 
     this._chatService.newMessageReceived()
     .subscribe(data=>this.messageArray.push(data));
-    
+
 
 
 }

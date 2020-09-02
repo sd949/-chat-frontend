@@ -40,6 +40,7 @@ export class SignupComponent implements OnInit {
         .subscribe(
           result =>{
             this.success_message="User Created Successfully"
+            this.router.navigateByUrl('/login');
             this.email=null;
             this.password=null;
 

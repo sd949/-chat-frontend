@@ -30,6 +30,7 @@ export class AuthService {
     .pipe(
       map(result => {
         console.log("User created successfully");
+        
         return true;
       })
     );

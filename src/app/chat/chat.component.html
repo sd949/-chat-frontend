@@ -1,0 +1,48 @@
+<div class="container-fluid" style="padding: 50px;">
+  <!-- <div class="row">
+      <h2>ChatNchat</h2>
+      <hr>
+  </div> -->
+   <div class="row">
+    <div class="col-sm-5">
+
+      <h1 >Hi {{user}}</h1>
+
+    </div>
+  </div>
+
+     <!-- <div class="col-sm-5">
+        <label for="roomInput">Choose Person</label>
+        <select name="roomInput" id="roomInput" class="form-control" [(ngModel)]="room" *ngIf="user">
+            <option value="Lobby" >SOURAV</option>
+            <option value="Hall">SWAGATA</option>
+            <option value="Deluxe">VICKY</option>
+            <option value="group">GROUP CHAT</option>
+        </select>
+    </div>
+
+      <div class="col sm-2">
+          <div style="margin-top:19px;" >
+              <button type="button" class="btn btn-primary" (click)="join()" [disabled]="!user || !room">Join</button>
+              <button type="button" class="btn btn-default" (click)="leave()">Leave</button>
+          </div>
+      </div>
+  </div> -->
+
+  <div class="row">
+      <div class="well" style="height:200px; width: 1000px; padding:15px; overflow-y: auto ;">
+          <div *ngFor="let item of messageArray">
+          <span><strong>{{item.user}} : </strong> {{item.message}}</span>
+          </div>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-sm-10">
+          <input type="text" class="form-control"  [(ngModel)]="messageText"  >
+      </div>
+      <div class="col-sm-2">
+              <button type="button" class="btn btn-success " (click)="sendMessage()" >Send</button>
+  </div>
+  </div>
+
+</div>

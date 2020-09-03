@@ -3,6 +3,7 @@ import { ChatService } from '../chat.service';
 import { Observable} from 'rxjs';
 import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../auth.service';
+import { FormGroup ,Validators,FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-chat',
@@ -11,6 +12,7 @@ import { AuthService } from '../auth.service';
 })
 export class ChatComponent implements OnInit {
   userid:string;
+  chatForm:FormGroup
 
   user:String;
 
@@ -73,7 +75,7 @@ export class ChatComponent implements OnInit {
 sendMessage()
 {
 
-  this._chatService.sendMessage({user:this.user,  message:this.messageText});
+  this._chatService.sendMessage({user:this.user,  message:this.chatForm.get('messageText').value});
 
 
 
@@ -92,6 +94,10 @@ ngOnInit() {
 //   });
 // })
   // this._chatService.getmessage().subscribe(data=>this.messageArray.push(data) );
+  this.chatForm = new FormGroup({
+    messageText: new FormControl("",Validators.required)
+
+ });
 
 
      console.log(this.messageArray);

@@ -18,7 +18,13 @@ export class ChatComponent implements OnInit {
   messageArray:Array<{user:String,message:String}> = [];
 
 
-  constructor(private _chatService: ChatService , private http:HttpClient ,public auth: AuthService){
+  constructor(private _chatService: ChatService , private http:HttpClient ,private auth: AuthService){
+  //   function updateScroll(){
+  //     var element = document.getElementById("chatBox");
+  //     element.scrollTop = element.scrollHeight;
+  //    }
+
+  // updateScroll()
     this.http.get<[{creator:String, content:String}]>('http://localhost:8080/chat').subscribe(data=>{
     data.forEach(element => {
       let {
@@ -76,6 +82,7 @@ sendMessage()
 this.messageText='';
 
 }
+
 userInfo;
 ngOnInit() {
 //  this.http.get('http://localhost:8080/chat').subscribe((response: any) => {
@@ -85,6 +92,7 @@ ngOnInit() {
 //   });
 // })
   // this._chatService.getmessage().subscribe(data=>this.messageArray.push(data) );
+
 
      console.log(this.messageArray);
 

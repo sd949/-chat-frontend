@@ -1,9 +1,10 @@
 <div>
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div class="alert alert-success" style="padding-left: 500px;" *ngIf="auth.isSignup">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" style="padding-left: 50px; ">
+    <div class="alert alert-success" style=" object-position: 50%; padding-left: 100px;" *ngIf="auth.isSignup">
       <strong>Success!</strong> User Created Successfully
     </div>
-    <div class="alert alert-danger" style="padding-left: 500px;" *ngIf="this.error_message" >
+
+    <div class="alert alert-danger" style="object-position: center; " *ngIf="this.error_message" >
       <strong>{{error_message}}</strong>
     </div>
 

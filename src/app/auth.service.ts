@@ -8,6 +8,8 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
+   isSignup:boolean=false;
+   Sp:boolean=false;
 
   constructor(private http: HttpClient) { }
   //loggin in for login component
@@ -30,9 +32,13 @@ export class AuthService {
     .pipe(
       map(result => {
         console.log("User created successfully");
-        
+        // this.isSignup=true;
+
         return true;
-      })
+      }
+
+      )
+      
     );
 }
 logout() {

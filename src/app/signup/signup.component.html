@@ -46,8 +46,13 @@
               class="btn btn-success" >SIGNUP</button>
 
             </div>
+
           </div>
         </div>
+        <div class="alert alert-danger" *ngIf="!this.signup">
+          <strong>Unsuccessfull!</strong> Password must be 5 digits or Invalid Email
+        </div>
+
 
     </div>
 
@@ -55,5 +60,11 @@
 
 
   </form>
+
+
+
+
+
+
 </div>
 

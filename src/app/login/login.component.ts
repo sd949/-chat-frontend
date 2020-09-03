@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   loginForm : FormGroup;
   public error_message: string;
 
-  constructor(private auth: AuthService, private router: Router, private fb:FormBuilder) { }
+  constructor(public auth: AuthService, private router: Router, private fb:FormBuilder) { }
   navigateToChat() {
     this.router.navigateByUrl('/chat', { state: this.loginForm.value });
     console.log(this.loginForm.value);
@@ -38,8 +38,8 @@ export class LoginComponent implements OnInit {
     ngOnInit() {
 
       this.loginForm = new FormGroup({
-            email: new FormControl("email",Validators.required),
-            password:new FormControl('password', Validators.required)
+            email: new FormControl("",Validators.required),
+            password:new FormControl('', Validators.required)
          });
     }
 

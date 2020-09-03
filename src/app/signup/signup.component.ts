@@ -22,32 +22,47 @@ export class SignupComponent implements OnInit {
   public success_message:string;
   public error_message:string;
   signupForm : FormGroup;
+  signup:boolean=true;
 
   constructor(private auth: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.signupForm = new FormGroup({
-      name:new FormControl('name', Validators.required),
-      email: new FormControl("email",Validators.required),
-      password:new FormControl('password', Validators.required)
+      name:new FormControl('', Validators.required),
+      email: new FormControl("",Validators.required),
+      password:new FormControl('', Validators.required)
    });
   }
   public onSubmit(){
+
     {
-      console.log("inside ts")
+     setTimeout(()=>{this.signup=false;}
+     ,3000);
+
+
+
+
+      console.log("inside ts1")
       this.auth.signup(this.signupForm.get("name").value, this.signupForm.get("email").value,this.signupForm.get('password').value)
         .pipe(first())
         .subscribe(
           result =>{
             this.success_message="User Created Successfully"
             this.router.navigateByUrl('/login');
+             this.auth.isSignup=true;
             this.email=null;
             this.password=null;
+            this.signup=true;
 
             this.name=null;
 
           } ,
-          err => this.error_message = 'Could not create user'
+          err => {
+            this.error_message = 'Could not create user'
+
+        }
+
+
         );
     }
 

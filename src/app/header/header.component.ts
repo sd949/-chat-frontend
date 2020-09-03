@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit {
   logout() {
     console.log('logout');
     this.chat.userLeftRoom();
+    this.auth.isSignup=false;
 
     this.auth.logout();
     this.router.navigate(['login']);

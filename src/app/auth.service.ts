@@ -15,7 +15,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
   //loggin in for login component
   login(email: string, password: string){
-   return this.http.post<{token: string}>('http://localhost:8080/auth/login', {email:email, password: password})
+   return this.http.post<{token: string}>('https://chatnchat-backend.herokuapp.com/auth/login', {email:email, password: password})
      .pipe(
        map((result:any) => {
          localStorage.setItem('access_token', result.token);
@@ -30,7 +30,7 @@ export class AuthService {
  }
  signup(name:string,email: string, password: string): Observable<boolean> {
   console.log("service");
-  return this.http.post('http://localhost:8080/auth/signup', {name:name,email:email, password: password})
+  return this.http.post('https://chatnchat-backend.herokuapp.com/auth/signup', {name:name,email:email, password: password})
     .pipe(
       map(result => {
         console.log("User created successfully");

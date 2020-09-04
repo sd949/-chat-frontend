@@ -25,7 +25,7 @@ export class ChatComponent implements OnInit {
 
 
   // updateScroll()
-    this.http.get<[{creator:String, content:String}]>('http://localhost:8080/chat').subscribe(data=>{
+    this.http.get<[{creator:String, content:String}]>('https://chatnchat-backend.herokuapp.com/chat').subscribe(data=>{
     data.forEach(element => {
       let {
         creator:user,

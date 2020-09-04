@@ -13,7 +13,7 @@ export class ChatService {
 
 
   constructor(private http:HttpClient) { }
-  private socket = io('http://localhost:8080');
+  private socket = io('https://chatnchat-backend.herokuapp.com');
 
 
   joinRoom(data)
@@ -65,9 +65,9 @@ export class ChatService {
 //     }
 getmessage():Observable<{user:String, message:String}>{
   // console.log("get message");
-  console.log(this.http.get<{user:String, message:String}>('http://localhost:8080/chat'));
+  console.log(this.http.get<{user:String, message:String}>('https://chatnchat-backend.herokuapp.com/chat'));
 
-      return this.http.get<{user:String, message:String}>('http://localhost:8080/chat');
+      return this.http.get<{user:String, message:String}>('https://chatnchat-backend.herokuapp.com/chat');
     }
 
 

@@ -25,7 +25,9 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
    result =>{
-      this.router.navigateByUrl('/chat')
+      this.router.navigateByUrl('/chat');
+      localStorage.setItem('status', '1');
+
 
       },
        error=>{
@@ -38,7 +40,7 @@ export class LoginComponent implements OnInit {
     ngOnInit() {
 
       this.loginForm = new FormGroup({
-            email: new FormControl("",Validators.required),
+            email: new FormControl("",[Validators.required,Validators.email]),
             password:new FormControl('', Validators.required)
          });
     }

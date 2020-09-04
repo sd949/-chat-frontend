@@ -29,8 +29,20 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
     this.signupForm = new FormGroup({
       name:new FormControl('', Validators.required),
-      email: new FormControl("",Validators.required),
-      password:new FormControl('', Validators.required)
+      email: new FormControl("",[Validators.required,Validators.email]),
+       password:new FormControl('',[
+        Validators.required,
+        Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}') ])
+    //   password: new FormControl(null, [ Validators.required,
+    //     // 2. check whether the entered password has a number
+    //   CustomV  .patternValidator(/\d/, { hasNumber: true }),
+    //     // 3. check whether the entered password has upper case letter
+    //     CustomValidators.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
+    //     // 4. check whether the entered password has a lower-case letter
+    //     CustomValidators.patternValidator(/[a-z]/, { hasSmallCase: true }),
+
+    //     Validators.minLength(8)
+    //  ])
    });
   }
   public onSubmit(){

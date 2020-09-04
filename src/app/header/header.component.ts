@@ -31,6 +31,7 @@ export class HeaderComponent  {
     console.log('logout');
     this.chat.userLeftRoom();
     this.auth.isSignup=false;
+    localStorage.setItem('status', '0');
 
     this.auth.logout();
     this.router.navigate(['login']);

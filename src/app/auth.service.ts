@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
 export class AuthService {
    isSignup:boolean=false;
    Sp:boolean=false;
+   lgout:boolean=true;
 
   constructor(private http: HttpClient) { }
   //loggin in for login component
@@ -20,6 +21,7 @@ export class AuthService {
          localStorage.setItem('access_token', result.token);
           localStorage.setItem('userId', result.userId);
           localStorage.setItem('name', result.name);
+          this.lgout=false;
 
          console.log(result);
           return result;
@@ -38,12 +40,13 @@ export class AuthService {
       }
 
       )
-      
+
     );
 }
 logout() {
   localStorage.removeItem('access_token');
   localStorage.removeItem('name');
+  this.lgout=true;
 
 }
 

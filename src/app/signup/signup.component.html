@@ -9,6 +9,12 @@
             <div class="form-group">
               <label for="name">NAME</label>
               <input type="name"  id="name"  class="form-control" formControlName="name" >
+              <span
+              *ngIf="!signupForm.get('name').valid && signupForm.get('name').touched "
+              class="help-block">
+              <span *ngIf="signupForm.get('name').errors['required']"
+              style="color: rgb(231, 6, 6);">this name is requried</span>
+            </span>
             </div>
 
 
@@ -21,6 +27,9 @@
               <div class="form-group">
                 <label for="email">EMAIL</label>
                 <input type="email"  id="email"  class="form-control" formControlName="email" >
+                <span
+              *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched "
+              class="help-block" style="color: rgb(231, 6, 6);">please ender valid email</span>
               </div>
 
 
@@ -32,7 +41,22 @@
             <div class="col-xs-5" >
               <div class="form-group">
                 <label for="password">PASSWORD</label>
-                <input type="password" id="password"  class="form-control" formControlName="password" >
+                <input type="password" id="password"  class="form-control" formControlName="password" [ngModel]="password" ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/">
+                <span
+              *ngIf="!signupForm.get('password').valid && signupForm.get('password').touched "
+              class="help-block">
+              <span *ngIf="signupForm.get('password').errors['required']"
+              style="color: rgb(231, 6, 6);"> password is requried</span>
+              <span *ngIf="signupForm.get('password').errors['pattern']"
+              style="color: rgb(231, 6, 6);">
+              password must contains <br>
+              1. At least 8 characters in length <br>
+              2. Lowercase letters <br>
+              3. Uppercase letters <br>
+              4. Numbers Special characters</span>
+              <!-- <span *ngIf="signupForm.get('password').length()<5"
+              style="color: rgb(231, 6, 6);"> password is gh requried</span> -->
+            </span>
               </div>
 
 
@@ -40,10 +64,13 @@
 
           </div>
           <div class="row">
-            <div class="col-xs-12">
+            <div class="col-xs-12"
+            >
+            <span *ngIf="!signupForm.valid && signupForm.touched "
+           class="help-block" >please ender valid data</span>
               <button
               type="submit"
-              class="btn btn-success" >SIGNUP</button>
+              class="btn btn-success" [disabled]="!signupForm.valid">SIGNUP</button>
 
             </div>
 

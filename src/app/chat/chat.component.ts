@@ -21,10 +21,8 @@ export class ChatComponent implements OnInit {
 
 
   constructor(private _chatService: ChatService , private http:HttpClient ,private auth: AuthService){
-  //   function updateScroll(){
-  //     var element = document.getElementById("chatBox");
-  //     element.scrollTop = element.scrollHeight;
-  //    }
+
+
 
   // updateScroll()
     this.http.get<[{creator:String, content:String}]>('http://localhost:8080/chat').subscribe(data=>{
@@ -47,8 +45,7 @@ export class ChatComponent implements OnInit {
 
 
 
-    this._chatService.newUserJoined()
-    .subscribe(data=> this.messageArray.push(data));
+
 
 
     this._chatService.userLeftRoom()
@@ -69,7 +66,15 @@ export class ChatComponent implements OnInit {
 
 // }
 
-
+ geek() {
+  //Scrolling the document to position "250"
+  //horizontally and "110" vertically
+  window.scrollTo(500, 500);
+}
+ updateScroll(){
+     var element = document.getElementById("chatBox");
+      element.scrollTop = element.scrollHeight;
+   }
 
 
 sendMessage()
@@ -94,10 +99,18 @@ ngOnInit() {
 //   });
 // })
   // this._chatService.getmessage().subscribe(data=>this.messageArray.push(data) );
+
+  if(localStorage.getItem('status')==="1")
+{
+  this._chatService.newUserJoined()
+  .subscribe(data=> this.messageArray.push(data));
+
+}
   this.chatForm = new FormGroup({
     messageText: new FormControl("",Validators.required)
 
  });
+
 
 
      console.log(this.messageArray);
@@ -106,6 +119,7 @@ ngOnInit() {
   this._chatService.joinRoom({user:this.user});
 
   this.userid=localStorage.getItem('userId');
+
 
 
 

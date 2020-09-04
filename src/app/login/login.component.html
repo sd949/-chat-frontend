@@ -19,6 +19,9 @@
               <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email"  id="email"  class="form-control" formControlName="email" >
+                <span
+              *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched "
+              class="help-block" style="color: rgb(231, 6, 6);">please ender valid data</span>
               </div>
 
 
@@ -31,6 +34,12 @@
               <div class="form-group">
                 <label for="password">PASSWORD</label>
                 <input type="password" id="password"  class="form-control" formControlName="password" >
+                <span
+              *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched "
+              class="help-block">
+              <span *ngIf="loginForm.get('password').errors['required']"
+              style="color: rgb(231, 6, 6);"> password is requried</span>
+            </span>
               </div>
 
 

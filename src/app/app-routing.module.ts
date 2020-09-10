@@ -8,7 +8,7 @@ import { from } from 'rxjs';
 
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/login',canActivate:[Auth1Guard] ,pathMatch: 'full' },
   { path: 'chat', component: ChatComponent},
   { path: 'login', component: LoginComponent},
   { path: 'signup', component: SignupComponent}

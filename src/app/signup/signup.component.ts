@@ -4,6 +4,7 @@ import { FormBuilder } from '../../../node_modules/@angular/forms';
 import { Router } from '@angular/router';
 import {AuthService} from '../auth.service';
 import { first } from 'rxjs/operators';
+import { error } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-signup',
@@ -68,11 +69,15 @@ export class SignupComponent implements OnInit {
 
             this.name=null;
 
-          } ,
-          err => {
-            this.error_message = 'Could not create user'
+          }, error=>{
+            console.log(error);
+            
+            this.error_message=error.message;
+          }
 
-        }
+
+
+
 
 
         );

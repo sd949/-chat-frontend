@@ -13,11 +13,14 @@ export class LoginComponent implements OnInit {
   loginForm : FormGroup;
   public error_message: string;
 
-  constructor(public auth: AuthService, private router: Router, private fb:FormBuilder) { }
-  navigateToChat() {
-    this.router.navigateByUrl('/chat', { state: this.loginForm.value });
-    console.log(this.loginForm.value);
-  }
+  constructor(public auth: AuthService, private router: Router, private fb:FormBuilder) {
+    // localStorage.clear();
+
+   }
+  // navigateToChat() {
+  //   this.router.navigateByUrl('/chat', { state: this.loginForm.value });
+  //   console.log(this.loginForm.value);
+  // }
 
   public onSubmit() {
     // console.log(this.loginForm.get("email").value, this.loginForm.get('password').value);
@@ -38,6 +41,12 @@ export class LoginComponent implements OnInit {
 
     }
     ngOnInit() {
+      // localStorage.clear();
+      if(this.auth.loggedIn){
+        this.router.navigateByUrl('/chat');
+
+      }
+
 
       this.loginForm = new FormGroup({
             email: new FormControl("",[Validators.required,Validators.email]),

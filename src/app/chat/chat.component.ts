@@ -4,6 +4,12 @@ import { Observable} from 'rxjs';
 import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../auth.service';
 import { FormGroup ,Validators,FormControl} from '@angular/forms';
+import { Router } from '@angular/router';
+const MINUTES_UNITL_AUTO_LOGOUT = 0.5 // in mins
+const CHECK_INTERVAL = 15000 // in ms
+const STORE_KEY =  'lastAction';
+
+//https://chatnchat-backend.herokuapp.com/chat
 
 @Component({
   selector: 'app-chat',
@@ -11,6 +17,8 @@ import { FormGroup ,Validators,FormControl} from '@angular/forms';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
+ isLoading=false;
+token:string;
   userid:string;
   chatForm:FormGroup
 
@@ -19,13 +27,25 @@ export class ChatComponent implements OnInit {
   messageText:String;
   messageArray:Array<{user:String,message:String}> = [];
 
+//
 
-  constructor(private _chatService: ChatService , private http:HttpClient ,private auth: AuthService){
-
+  constructor(private _chatService: ChatService , private http:HttpClient ,private auth: AuthService ,private router:Router){
+    this.check();
+    this.initListener();
+    this.initInterval();
+    localStorage.setItem(STORE_KEY,Date.now().toString());
+    this.isLoading=true;
 
 
   // updateScroll()
-    this.http.get<[{creator:String, content:String}]>('https://chatnchat-backend.herokuapp.com/chat').subscribe(data=>{
+  this.token=localStorage.getItem('access_token');
+
+  if(this.token){
+    this.http.get<[{creator:String, content:String}]>('http://localhost:8080/chat',{
+      headers:{
+        Authorization: this.token
+      }
+    }).subscribe(data=>{
     data.forEach(element => {
       let {
         creator:user,
@@ -33,6 +53,7 @@ export class ChatComponent implements OnInit {
 
       }=element;
       // console.log(element);
+      this.isLoading=false;
     this.messageArray.push({user,message});
 
 
@@ -41,6 +62,9 @@ export class ChatComponent implements OnInit {
     console.log(this.messageArray);
   }
      );
+
+
+  }
 
 
 
@@ -57,6 +81,47 @@ export class ChatComponent implements OnInit {
 
 
 }
+
+//autologout
+  //auto logout
+  public getLastAction() {
+    return parseInt(localStorage.getItem(STORE_KEY));
+  }
+ public setLastAction(lastAction: number) {
+    localStorage.setItem(STORE_KEY, lastAction.toString());
+  }
+initListener() {
+  document.body.addEventListener('click', () => this.reset());
+  document.body.addEventListener('mouseover',()=> this.reset());
+  document.body.addEventListener('mouseout',() => this.reset());
+  document.body.addEventListener('keydown',() => this.reset());
+  document.body.addEventListener('keyup',() => this.reset());
+  document.body.addEventListener('keypress',() => this.reset());
+}
+
+reset() {
+  this.setLastAction(Date.now());
+}
+
+initInterval() {
+  setInterval(() => {
+    this.check();
+  }, CHECK_INTERVAL);
+}
+check() {
+  const now = Date.now();
+  const timeleft = this.getLastAction() + MINUTES_UNITL_AUTO_LOGOUT * 60 * 1000;
+  const diff = timeleft - now;
+  const isTimeout = diff < 0;
+
+  if (isTimeout)  {
+    localStorage.clear();
+  this.router.navigate(['./login']);
+    // alert('It seems You are Away from Chat')
+  }
+}
+
+
 // newUserJoined(){
 //   let observable=new Observable<{user:string, message:string}>(
 //     observer=>{

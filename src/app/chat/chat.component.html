@@ -31,8 +31,11 @@
 
   <div class="row"   >
       <div class="well "   style="height: 65vh; max-width: 995px; overflow-y: auto ; margin: auto; ">
-        <div *ngIf="isLoading">
-          <h2 style="color: magenta;">Message is lodding...........</h2>
+        <div *ngIf="isLoading && token">
+          <h2 style="color:black;">Message is lodding...........</h2>
+        </div>
+        <div *ngIf="!token">
+          <h2 style="color: magenta;">You are not Authenticated, go to login Routes, RouteGuard has been removed for Api testing still you are not able to see chats</h2>
         </div>
           <div   *ngFor="let item of messageArray"  >
 
